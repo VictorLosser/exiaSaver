@@ -10,6 +10,7 @@ int main()
 	system("clear");
 	srand(time(NULL));
 	int nb=nb_rand()%3+1;
+	int nbPic=nb_rand()%4+1;
 
 	printf("Bonjour et bienvenue dans exiaSaver !\nVeuillez appuyez sur Entrée pour continuer...");
 	getchar();
@@ -19,6 +20,20 @@ int main()
 	if (nb ==1)
 	{
 		printf("Nous allons lancer le type statique !\n");
+		
+
+		/*-----------L'IMAGE QUE L'ON VA LANCER-----------*/
+		/*switch (nbPic)
+		{
+		case 1:
+		break;
+		case 2:
+		break;
+		case 3:
+		break;
+		case 4:
+		break;
+		}*/
 	}
 	else if (nb ==2)
 	{
@@ -28,7 +43,7 @@ int main()
 	{
 		printf("Nous allons lancer le type interactif !\n");
 	}
-	saveDate(nb);
+	saveDate(nb,nbPic);
 }
 
 /*-----------------------FONCTION NOMBRE RANDOM-----------------------*/
@@ -38,9 +53,17 @@ int nb_rand(void)
 	    return (rand());
 	}
 
+
+
+
+
+
+
+
+
 /*-----------------------FONCTION POUR EXPORTER DANS L'HISTORIQUE-----------------------*/
 
-void saveDate(int type)
+void saveDate(int type, int nombrePicture)
 {
 	FILE* fhistorique = NULL; //initialise le pointeur à NULL
 	fhistorique = fopen("historique.txt", "r+"); //OUVRE LE FICHIER historique.c
@@ -70,7 +93,7 @@ void saveDate(int type)
 
 
 
-		/*-----------ECRITURE DE TOUTES LES DONNEES DANS L'HISTORIQUE-----------*/
+		/*-----------ECRITURE DE TOUTES LES DONNEES (SAUF PARAMETRE) DANS L'HISTORIQUE-----------*/
 
 		fseek(fhistorique, 0, SEEK_END); //Place le curseur à la fin du fichier
 
@@ -84,27 +107,44 @@ void saveDate(int type)
 		fprintf(fhistorique, "%d", type);
 		fseek(fhistorique, 0, SEEK_END);
 		fprintf(fhistorique,";");
-
-		if(nb == 1)
-		{
-			//Récupère le paramètre associé
-			//Ecrit le paramètre associé
-			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"\n");
-		}
-		else if (nb == 2)
-		{
-			//Récupère le paramètre associé
-			//Ecrit le paramètre associé
-			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"\n");
-		}
-		else if (nb == 3)
-		{
 		
-
+		/*-----------------ECRITURE DES PARAMETRES ASSOCIES AU TERMSAVER CHOISI-----------------*/
+		if(type == 1)
+		{
+			//Ecrit l'image utilisé pour le type statique
+			switch (nombrePicture)
+			{
+				case 1:
+					fseek(fhistorique, 0, SEEK_END);
+					fprintf(fhistorique,"1_XD.pbm\n");
+				break;
+				case 2:
+					fseek(fhistorique, 0, SEEK_END);
+					fprintf(fhistorique,"2_château.pbm\n");
+				break;
+				case 3:
+					fseek(fhistorique, 0, SEEK_END);
+					fprintf(fhistorique,"3_fusée.pbm\n");
+				break;
+				case 4:
+					fseek(fhistorique, 0, SEEK_END);
+					fprintf(fhistorique,"4_maison.pbm\n");
+				break;
+			}
+		}
+		else if (type == 2)
+		{
+			fseek(fhistorique, 0, SEEK_END);
+			fprintf(fhistorique,"\n");
+		}
+		else if (type == 3)
+		{
+			fseek(fhistorique, 0, SEEK_END);
+			fprintf(fhistorique,"\n");
+		}
 		fclose(fhistorique);//FERME LE FICHIER
 		printf("Ecriture dans l'historique réussie\n\n");
+		
 	}
 	else
 	{
