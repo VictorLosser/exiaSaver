@@ -52,9 +52,9 @@ void saveDate(int type)
 		struct tm tm_HeureDate = *localtime (&HeureDate);
 
 		//Crée une chapine JJ/MM/AAAA HH:MM:SS
-		char s_HeureDate[sizeof "JJ/MM/AAAA HH:MM:SS];
+		char s_HeureDate[sizeof "JJ/MM/AAAA HH:MM:SS"];
 
-		strftime (s_now, sizeof s_now, "%d/%m/%Y %H:%M:%S", &tm_now);
+		strftime (s_HeureDate, sizeof s_HeureDate, "%d/%m/%Y %H:%M:%S", &tm_HeureDate);
 
 
 		fseek(fhistorique, 0, SEEK_END); //Place le curseur à la fin du fichier
@@ -70,7 +70,7 @@ void saveDate(int type)
 
 		//Ecrit la date
 		fseek(fhistorique, 0, SEEK_END);
-		fprintf(fhistorique," ");
+		fprintf(fhistorique,"%s", s_HeureDate);
 
 
 		//Ecrit l'heure
