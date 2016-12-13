@@ -23,6 +23,7 @@ int main(int argc,char *argv[])
 
 	int n;
 	n = nombreImages();
+	printf("Le nombre d'images est %d", n);
 	int nbPic=nb_rand()%n+1;
 
 	printf("Bonjour et bienvenue dans exiaSaver !\nVeuillez appuyez sur Entrée pour continuer...");
@@ -65,13 +66,6 @@ int nb_rand(void)
 	{
 	    return (rand());
 	}
-
-
-
-
-
-
-
 
 
 /*-----------------------FONCTION POUR EXPORTER DANS L'HISTORIQUE-----------------------*/
@@ -169,8 +163,22 @@ void saveDate(int type, int nombrePicture)
 
 int nombreImages(void)
 {
-    opendir
+    int nombrePic = 0; //initalisation à 0 du nombre d'images
 
+    DIR* repertoireImages = NULL; //déclaration et initialisation à NULL du pointeur repertoireImages
 
-    return nombre;
+    struct dirent* ent = NULL;
+
+    repertoireImages = opendir("PBM_statique/"); //Ouverture du dossier PBM_statique dans repertoireImages
+
+    while ((ent = readdir(repertoireImages)) != NULL) //Tant que des fichiers sont lus (fichiers déjà tous lu = NULL)
+    {
+        if (strcmp(ent->d_name, ".") != 0 && //Si le fichier lu n'est pas .
+            strcmp(ent->d_name, "..") != 0) //Et n'est pas .. non plus
+        nombrePic++; //Alors on incrémente le compteur
+    }
+
+    closedir(repertoireImages);
+    return nombrePic;
+
 }
