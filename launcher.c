@@ -19,19 +19,19 @@ int main(int argc,char *argv[])
 {
 	system("clear");
 	srand(time(NULL));
-	int nb=nb_rand()%3+1;
+	int choix_ts=nb_rand()%3+1;
 
-	int n;
-	n = nombreImages();
-	printf("Le nombre d'images est %d", n);
-	int nbPic=nb_rand()%n+1;
+	int nb_I_S;
+	nb_I_S = nombreImagesStatique();
+
+	int choix_I_S=nb_rand()%nb_I_S+1;
 
 	printf("Bonjour et bienvenue dans exiaSaver !\nVeuillez appuyez sur Entrée pour continuer...");
 	getchar();
 	printf("\nNous allons voir ensemble quel écran de veille nous allons lancer\nVeuillez appuyez sur Entrée pour continuer...\n\n");
 	getchar();
-	printf("Le nombre random est de : %d\n\n", nb);
-	if (nb ==1)
+	printf("Le nombre random est de : %d\n\n", choix_ts);
+	if (choix_ts ==1)
 	{
 		printf("Nous allons lancer le type statique !\n");
 
@@ -49,15 +49,15 @@ int main(int argc,char *argv[])
 		break;
 		}*/
 	}
-	else if (nb ==2)
+	else if (choix_ts ==2)
 	{
 		printf("Nous allons lancer le type dynamique !\n");
 	}
-	else if (nb ==3)
+	else if (choix_ts ==3)
 	{
 		printf("Nous allons lancer le type interactif !\n");
 	}
-	saveDate(nb,nbPic);
+	saveDate(choix_ts,choix_I_S);
 }
 
 /*-----------------------FONCTION NOMBRE RANDOM-----------------------*/
@@ -136,6 +136,10 @@ void saveDate(int type, int nombrePicture)
 				case 4:
 					fseek(fhistorique, 0, SEEK_END);
 					fprintf(fhistorique,"4_maison.pbm\n");
+                break;
+                case 5:
+                    fseek(fhistorique, 0, SEEK_END);
+					fprintf(fhistorique,"5_sapin.pbm\n");
 				break;
 			}
 		}
@@ -161,7 +165,7 @@ void saveDate(int type, int nombrePicture)
 
 /*-----------------------FONCTION POUR CONNAITRE LE NOMBRE D'IMAGE-----------------------*/
 
-int nombreImages(void)
+int nombreImagesStatique(void)
 {
     int nombrePic = 0; //initalisation à 0 du nombre d'images
 
