@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h> //Inclure la bibliothèque qui contient entre autre la fonction execl
 
 /*Bibliothèque contenant les fonctions pour le parcours de dossiers*/
 #include <dirent.h>
@@ -40,7 +41,9 @@ int main(int argc,char *argv[])
         /*---------Vérifie si l'argument rentré est -stat (sinon, on indique que l'argument rentré ne correspond à rien)----------*/
 		if (stat_verif == 0)
 		{
-			printf("Bravo, vous avez rentré le paramètre -stat :)\n");
+			printf("Bravo, vous avez rentré le paramètre -stat :)\nNous allons procéder à l'ouverture du programme des statistiques, apuuyez simplement sur Entrée :)\n");
+			getchar();
+			execl("stats","stats", NULL); //Exécute l'exécutable stats pour rentrer dans les stats :)
 		}
 		else
 		{
