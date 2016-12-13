@@ -17,26 +17,53 @@
 
 int main(int argc,char *argv[])
 {
-	system("clear");
+	system("clear"); //Nettoie la console
 	srand(time(NULL));
-	int choix_ts=nb_rand()%3+1;
+	int choix_ts=nb_rand()%3+1; //Affecte à la variable choix_ts, un nombre au hasard compris entre 1 et 3
 
-	int nb_I_S;
-	nb_I_S = nombreImagesStatique();
+	int nb_I_S; //Variable contenant le nombre d'image statique dans le dossier des images statiques
+	nb_I_S = nombreImagesStatique(); //Met dans la variable nb_I_S le résultat retourné par la fonction nombreImaesStatique. Cette fonction permet de connaitre le nombre d'images statiques
 
-	int choix_I_S=nb_rand()%nb_I_S+1;
+	int choix_I_S=nb_rand()%nb_I_S+1; //Le choix de l'image statique se fera entre la numéro 1 et la numéro n (n correspond au nombre d'images trouvé précédemment)
+
+/*-----------------------VERIFIE SI L'ARGUMENT STAT EST SAISI-----------------------*/
+	char stat_argument[] = "-stat"; //On définit une chaine de caractère qui contient "-stat", afin que l'on puisse comparer si l'argument rentré correspond à ça
+	int stat_verif; //Déclaration de la variable stat_verif (pour connaitre son utilité, voir plus bas
+
+    /*---------Vérifie si un argument est rentré (sinon le programme continue sans que rien ne se passe)---------*/
+
+	if(argv[1] != NULL)
+	{
+		printf("Vous avez rentré un argument...\n");
+		stat_verif=strcmp(argv[1],stat_argument); //On met dans la variable stat_verif le numéro du résultat de strcmp : 0 si les deux chaines sont identiques (donc -stat rentré par l'utilisateur) ou un autre chiffre si les deux chaines ne correspondent pas
+
+        /*---------Vérifie si l'argument rentré est -stat (sinon, on indique que l'argument rentré ne correspond à rien)----------*/
+		if (stat_verif == 0)
+		{
+			printf("Bravo, vous avez rentré le paramètre -stat :)\n");
+		}
+		else
+		{
+			printf("Le paramètre que vous avez rentré est inconnu pour nous ;)\nLe programme continue\n");
+            getchar();
+		}
+	}
+/*--------------------------FIN TEST ARGUMENT--------------------------*/
+
 
 	printf("Bonjour et bienvenue dans exiaSaver !\nVeuillez appuyez sur Entrée pour continuer...");
 	getchar();
 	printf("\nNous allons voir ensemble quel écran de veille nous allons lancer\nVeuillez appuyez sur Entrée pour continuer...\n\n");
 	getchar();
 	printf("Le nombre random est de : %d\n\n", choix_ts);
+
+	/*-------Que faire selon le type d'écran de veille choisi-------*/
 	if (choix_ts ==1)
 	{
 		printf("Nous allons lancer le type statique !\n");
 
 
-		/*-----------L'IMAGE QUE L'ON VA LANCER-----------*/
+		/*-----------L'image que l'on va lancer en mode type statique-----------*/
 		/*switch (nbPic)
 		{
 		case 1:
@@ -59,6 +86,7 @@ int main(int argc,char *argv[])
 	}
 	saveDate(choix_ts,choix_I_S);
 }
+
 
 /*-----------------------FONCTION NOMBRE RANDOM-----------------------*/
 
