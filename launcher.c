@@ -48,7 +48,7 @@ int main(int argc,char *argv[])
 		else
 		{
 			printf("Le paramètre que vous avez rentré est inconnu pour nous ;)\nLe programme continue\n");
-            getchar();
+            		getchar();
 		}
 	}
 /*--------------------------FIN TEST ARGUMENT--------------------------*/
@@ -63,21 +63,28 @@ int main(int argc,char *argv[])
 	/*-------Que faire selon le type d'écran de veille choisi-------*/
 	if (choix_ts ==1)
 	{
-		printf("Nous allons lancer le type statique !\n");
-
+		printf("Nous allons lancer le type statique !\nVous etes pret ?\n");
+        getchar();
 
 		/*-----------L'image que l'on va lancer en mode type statique-----------*/
-		/*switch (nbPic)
+		switch (choix_I_S)
 		{
 		case 1:
+            execl("termSaver1", "termSaver1", "1_XD.pbm", NULL);
 		break;
 		case 2:
+            execl("termSaver1", "termSaver1", "2_chateau.pbm", NULL);
 		break;
 		case 3:
+            execl("termSaver1", "termSaver1", "3_fusée.pbm", NULL);
 		break;
 		case 4:
+            execl("termSaver1", "termSaver1", "4_maison.pbm",NULL);
 		break;
-		}*/
+		case 5:
+            execl("termSaver1", "termSaver1", "5_sapin.pbm", NULL);
+		break;
+		}
 	}
 	else if (choix_ts ==2)
 	{
@@ -158,7 +165,7 @@ void saveDate(int type, int nombrePicture)
 				break;
 				case 2:
 					fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"2_château.pbm\n");
+					fprintf(fhistorique,"2_chateau.pbm\n");
 				break;
 				case 3:
 					fseek(fhistorique, 0, SEEK_END);
