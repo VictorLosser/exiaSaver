@@ -60,6 +60,10 @@ int main(int argc,char *argv[])
 	getchar();
 	printf("Le nombre random est de : %d\n\n", choix_ts);
 
+/*----------------------SAUVEGARDER DANS L'HISTORIQUE----------------------*/
+	saveDate(choix_ts,choix_I_S);
+
+
 	/*-------Que faire selon le type d'écran de veille choisi-------*/
 	if (choix_ts ==1)
 	{
@@ -94,7 +98,6 @@ int main(int argc,char *argv[])
 	{
 		printf("Nous allons lancer le type interactif !\n");
 	}
-	saveDate(choix_ts,choix_I_S);
 }
 
 
@@ -133,9 +136,6 @@ void saveDate(int type, int nombrePicture)
 
 
 		fseek(fhistorique, 0, SEEK_END); //Place le curseur à la fin du fichier
-
-		//Récupère le paramètre associé
-
 
 
 		/*-----------ECRITURE DE TOUTES LES DONNEES (SAUF PARAMETRE) DANS L'HISTORIQUE-----------*/
