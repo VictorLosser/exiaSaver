@@ -22,15 +22,6 @@ int main()
     scanf("%d", &choix);
     system("clear");
 
-
-
-
-
-    //FILE* fhistorique = NULL; //initialise le pointeur à NULL
-    //fhistorique = fopen("historique.txt", "r+"); //OUVRE LE FICHIER historique.c
-
-    //if (fhistorique != NULL) //Vérifie si le fichier est bien ouvert, car si fichier=NULL signifie qu'il y a une erreur
-    //{
         printf("\nSuccès pour l'ouverture de l'historique\n");
 
         /*---------STATS SUR LA DATE---------*/
@@ -45,16 +36,15 @@ int main()
         else if(choix == 2)
         {
             Input newInput[100] = {0};
-            ReadStats(newInput);
-            Counter(newInput);
+            ReadStats(newInput); //Lance la fonction ReadSats
+            Type_tS(newInput); //Lance la fonction Type_tS
             return 0;
         }
 
         /*---------STATS SUR L'IMAGE CHARGEE POUR LE TYPE STATISTIQUE---------*/
         else if(choix == 3)
         {
-            printf("J'ai rien développé :'( \n");
-
+            Image_tS1_lu();
 
         }
 
@@ -65,18 +55,6 @@ int main()
 
 
         }
-
-        //fclose(fhistorique);//FERME LE FICHIER
-    //}
-
-    //else
-    //{
-     //   printf("\nImpossible d'ouvrir le fichier historique...");
-    //}
-
-
-
-
 }
 
 int nombreLignes(void)
@@ -97,6 +75,7 @@ int nombreLignes(void)
 	return nb_lignes;
 }
 
+/*-------------FONCTION POUR LIRE ET STOCKER TOUTES LES VALEURS DANS L'HISTORIQUE-------------*/
 void ReadStats(Input input[])
 {
     FILE *fichier = NULL;
@@ -115,6 +94,7 @@ void ReadStats(Input input[])
     fclose(fichier);
 }
 
+/*-------------FONCTION POUR TRIER LA DATE DANS L'ORDRE CHRONOLOGIQUE-------------*/
 void triDate(Input input[])
 {
     int i = 0, tri = 0;
@@ -151,6 +131,7 @@ void triDate(Input input[])
     PrintStats(input);
 }
 
+/*-------------FONCTION POUR TRIER L'HEURE DANS L'ORDRE CHRONOLOGIQUE-------------*/
 void triHeure(Input input[])
 {
     int k = 0, trie = 0;
@@ -187,6 +168,7 @@ void triHeure(Input input[])
     PrintStats(input);
 }
 
+/*-------------FONCTION POUR AFFICHER LES DIFFERENTES VALEURS DANS L'HISTORIQUE-------------*/
 void PrintStats(Input input[])
 {
     int i;
@@ -201,23 +183,115 @@ void PrintStats(Input input[])
     }
 }
 
-void Counter(Input input[])
+/*-------------FONCTION POUR COMPTER ET AFFICHER LE NOMBRE DE TYPES TERMSAVER LANCES-------------*/
+void Type_tS(Input input[])
 {
     int i, type1=0, type2=0, type3=0;
+
+    /*On va lire jusqu'à 100 lignes*/
     for (i = 0; i < 100; i++)
     {
         switch ((int)input[i].type[0])
         {
+            /* Si le type lu est 1, on incrémente le compteur de type1 de 1*/
             case 49:
                 type1++;
                 break;
+
+            /* Si le type lu est 2, on incrémente le compteur de type2 de 1*/
             case 50:
                 type2++;
                 break;
+
+            /* Si le type lu est 3, on incrémente le compteur de type3 de 1*/
             case 51:
                 type3++;
                 break;
         }
     }
     printf("type 1: %d\ntype 2: %d\ntype 3: %d\n", type1, type2, type3);
+}
+
+void Image_tS1_lu(void)
+{
+    int image1 = 0, image2 = 0, image3 = 0, image4 = 0, image5 = 0; //Déclaration des compteurs pour les images lu
+
+    FILE* fhistorique = NULL; //initialise le pointeur à NULL
+	fhistorique = fopen("historique.txt", "r+"); //OUVRE LE FICHIER historique.c
+
+	if (fhistorique != NULL)
+	{
+		int type_detecte[100];
+		int i;
+
+		char image1c[] = "1_XD.pbm";
+		char image2c[] = "2_chateau.pbm";
+		char image3c[] = "3_fusee.pbm";
+		char image4c[] = "4_maison.pbm";
+		char image5c[] = "5_sapin.pbm";
+		int verif1 = 0, verif2 = 0, verif3 = 0, verif4 = 0, verif5 = 0;
+
+
+		fseek(fhistorique, 20,SEEK_SET);
+
+		/*------Le type lu est-il bien 1 ?------*/
+
+		for (i=0; i < 100; i++)
+		{
+
+		fscanf(fhistorique, "%d", &type_detecte[i]);
+		printf("%d ", type_detecte[i]);
+
+
+
+			if (type_detecte[i] == 1)
+			{
+				fseek(fhistorique, 1,SEEK_CUR);
+
+				char c[100] = "";
+				fgets(c, 100, fhistorique);
+				printf("%s\n", c);
+
+				verif1=strcmp(c,image1c);
+				verif2=strcmp(c,image2c);
+				verif3=strcmp(c,image3c);
+				verif4=strcmp(c,image4c);
+				verif5=strcmp(c,image5c);
+
+				if (verif1 == 0)
+				{
+                    image1++;
+				}
+				else if (verif2 == 0)
+				{
+                    image2++;
+				}
+				else if (verif3 == 0)
+				{
+                    image3++;
+				}
+				else if (verif4 == 0)
+				{
+                    image4++;
+				}
+				else if (verif5 == 0)
+				{
+                    image5++;
+				}
+
+			}
+			else
+			{
+				fseek(fhistorique, 2, SEEK_CUR);
+			}
+		fseek(fhistorique, 20,SEEK_CUR);
+		}
+
+	}
+	else
+	{
+		printf("non\n");
+	}
+	fclose(fhistorique);
+    printf("Image XD: %d\nImage chateau: %d\nImage fusee: %d\nImage maison: %d\nImage sapin: %d\n", image1, image2, image3, image4, image5);
 }
