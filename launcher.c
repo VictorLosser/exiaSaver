@@ -92,7 +92,9 @@ int main(int argc,char *argv[])
 	}
 	else if (choix_ts ==2)
 	{
-		printf("Nous allons lancer le type dynamique !\n");
+		printf("Nous allons lancer le type dynamique !\nVous etes pret ?\n");
+		getchar();
+		execl("termSaver2", "termSaver2", NULL);
 	}
 	else if (choix_ts ==3)
 	{
