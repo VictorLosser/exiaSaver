@@ -153,7 +153,6 @@ void saveDate(int type, int nombrePicture)
 		/*-----------------ECRITURE DES PARAMETRES ASSOCIES AU TERMSAVER CHOISI-----------------*/
 		if(type == 1)
 		{
-			//Ecrit l'image utilisé pour le type statique
 			switch (nombrePicture)
 			{
 				case 1:
@@ -181,9 +180,9 @@ void saveDate(int type, int nombrePicture)
 		else if (type == 2)
 		{
 			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"void"); //Le void est important pour la lecture des stats
+			fprintf(fhistorique,"void");
 		}
-
+        fclose(fhistorique);//FERME LE FICHIER
         printf("     Ecriture dans l'historique réussie\n\n\n");
 
 	}
