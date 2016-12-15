@@ -28,7 +28,7 @@ int main()
         /*---------STATS SUR LA DATE---------*/
         if(choix == 1)
         {
-            Input newInput[TAILLE_MAX] = {0}; //Création d'une nouvelle entrée
+            Input newInput[1000] = {0}; //Création d'une nouvelle entrée
             Lecture_stats(newInput); //Lance la fonction Lecture_stats qui lit les stats comme son nom l'indique !
             tri_Heure(newInput); //Lance la fonction tri_heure qui tri... l'heure !
         }
@@ -45,12 +45,12 @@ int main()
         /*---------STATS SUR L'IMAGE CHARGEE POUR LE TYPE STATISTIQUE---------*/
         else if(choix == 3)
         {
-            Image_tS1_lu();
+            Image_tS1_lu(); //Lance la fonction image_ts1_lu (description plus bas avant la fonction)
 
         }
 }
 
-/*-------------FONCTION POUR LIRE ET STOCKER TOUTES LES VALEURS DANS L'HISTORIQUE-------------*/
+/*-------------FONCTION POUR LIRE ET STOCKER TOUTES LES VALEURS DE L'HISTORIQUE-------------*/
 void Lecture_stats(Input input[])
 {
     FILE *fichier = NULL;
@@ -68,6 +68,7 @@ void Lecture_stats(Input input[])
     }
     fclose(fichier);
 }
+
 
 /*-------------FONCTION POUR TRIER L'HEURE DANS L'ORDRE CHRONOLOGIQUE-------------*/
 void tri_Heure(Input input[])
@@ -105,6 +106,7 @@ void tri_Heure(Input input[])
     }
     Afficher_stats(input);
 }
+
 
 /*-------------FONCTION POUR AFFICHER LES DIFFERENTES VALEURS DANS L'HISTORIQUE-------------*/
 void Afficher_stats(Input input[])
@@ -150,9 +152,17 @@ void Type_tS(Input input[])
     printf("type 1: %d\ntype 2: %d\ntype 3: %d\n", type1, type2, type3);
 }
 
+/*------FONCTION POUR SAVOITR COMBIEN DE FOIS ON A LANCE TELLE OU TELLE IMAGE------*/
 void Image_tS1_lu(void)
 {
     int compteur[5]; //Déclaration des compteurs pour les images lu
+    /*
+    compteur[0] : compteur pour l'image 1_XD.pbm
+    compteur|1] : compteur pour l'image 2_chateau.pbm
+    compteur[2] : compteur pour l'image 3_fusee.pbm
+    compteur[3] : compteur pour l'image 4_maison.pbm
+    compteur[4] : compteur pour l'image 5_sapin.pbm
+    */
 
     FILE* fhistorique = NULL; //initialise le pointeur à NULL
 	fhistorique = fopen("historique.txt", "r"); //OUVRE LE FICHIER historique.c
@@ -165,25 +175,22 @@ void Image_tS1_lu(void)
 		char image4c[] = "4_maison.pbm";
 		char image5c[] = "5_sapin.pbm";
 
-        int date[3][TAILLE_MAX] = {0};
-        int heure[3][TAILLE_MAX] = {0};
-        int mode[1][TAILLE_MAX] = {0};
-        char nom[50] = {""};
+        int date[3][TAILLE_MAX] = {0}; //tableau contenant la date
+        int heure[3][TAILLE_MAX] = {0}; //tableau contenant l'heure
+        int mode[1][TAILLE_MAX] = {0}; //tableau contenant le type de tS
+        char nom[50] = {""}; //tableau de char contenant le nom de l'image
 
 
-	if (fhistorique != NULL)
+	if (fhistorique != NULL) //Regarde si le fichier a bien été ouvert
 	{
 
-
-		/*------Le type lu est-il bien 1 ?------*/
-
-		while (fgetc(fhistorique) != EOF)
+		while (fgetc(fhistorique) != EOF) //Tant que le caractère lu lit quelque chose
 		{
 
-        fscanf(fhistorique, "%d/%d/%d %d:%d:%d;%d;%s",  &date[0][i], &date[1][i], &date[2][i], &heure[0][i], &heure[1][i], &heure[2][i], &mode[0][i], &nom);
+        fscanf(fhistorique, "%d/%d/%d %d:%d:%d;%d;%s",  &date[0][i], &date[1][i], &date[2][i], &heure[0][i], &heure[1][i], &heure[2][i], &mode[0][i], &nom); //On lit toutes les valeurs qu'il nous faut
 
 
-				if (strcmp(nom,image1c) == 0)
+				if (strcmp(nom,image1c) == 0) //Regarde si le résultat de strcmp est 0 (donc les deux chaines sont identiques, donc ce qui est lu est ici 1_XD.pbm)
 				{
                     compteur[0]++; //J'incrémente le compteur pour l'image 1 de 1
 				}
@@ -210,8 +217,8 @@ void Image_tS1_lu(void)
 	}
 	else
 	{
-		printf("non\n");
+		printf("non\n"); //Le fichier fhistorique n'a pas pu etre ouvert
 	}
 	fclose(fhistorique);
-    printf("Image XD: %d\nImage chateau: %d\nImage fusee: %d\nImage maison: %d\nImage sapin: %d\n", compteur[0], compteur[1], compteur[2], compteur[3], compteur[4]);
+    printf("Image XD: %d\nImage chateau: %d\nImage fusee: %d\nImage maison: %d\nImage sapin: %d\n", compteur[0], compteur[1], compteur[2], compteur[3], compteur[4]); //Affiche le résultat des compteurs
 }

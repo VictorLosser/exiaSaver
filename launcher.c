@@ -181,15 +181,10 @@ void saveDate(int type, int nombrePicture)
 		else if (type == 2)
 		{
 			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"void");
+			fprintf(fhistorique,"void"); //Le void est important pour la lecture des stats
 		}
-		else if (type == 3)
-		{
-			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"void");
-		}
-		fclose(fhistorique);//FERME LE FICHIER
-		printf("     Ecriture dans l'historique réussie\n\n\n");
+
+        printf("     Ecriture dans l'historique réussie\n\n\n");
 
 	}
 	else
