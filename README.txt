@@ -6,9 +6,9 @@ Pour cela, voici les lignes à rentrer dans votre console :
 
     gcc launcher.c -o launcher
 
-    gcc termSaver1.c -o termSaver -lncurses
+    gcc termSaver1.c -o termSaver1 -lncurses
 
-    gcc termSaver2.c -o termSaver
+    gcc termSaver2.c -o termSaver2
 
     gcc stats.c -o stats
     
