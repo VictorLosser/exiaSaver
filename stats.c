@@ -19,7 +19,6 @@ int main()
        1. Les stats sur la date\n\n\
        2. Les stats sur le termSaver exécuté\n\n\
        3. Les stats sur l'image chargé pour le type statique\n\n\
-       4. Les stats sur la taille utilisé pour le mode dynamique\n\n\
     Merci de faire votre choix :\n");
     scanf("%d", &choix);
     system("clear");
@@ -47,14 +46,6 @@ int main()
         else if(choix == 3)
         {
             Image_tS1_lu();
-
-        }
-
-        /*---------STATS SUR LA TAILLE UTILISE POUR LE MODE DYNAMIQUE---------*/
-        else if(choix == 4)
-        {
-            printf("J'ai rien développé :'( \n");
-
 
         }
 }
