@@ -44,8 +44,6 @@ int InitTime()
         int i=0, j=0;				//Déclaration des deux variables pour les boucles
         int r,e;	
 
-	fichier1 = (FILE*)malloc(sizeof(int));	//Permet d'allouer de la mémoire au pointeur fichier1
-	
 	for (z=0;z<8;z++)
 	{
 		switch (Tab[z])
@@ -112,8 +110,7 @@ int InitTime()
 				printf("%s", chaine);				//Afficher l'image ligne par ligne
         	            }
 				fclose(fichier1);   				//On ferme le fichier ouvert
-				fichier1 = NULL;
-				free(fichier1);					//Permet de libérer la mémoire allouer	
+				fichier1 = NULL;	
         	    }
 		x=x-5;
 		y=y+7;
@@ -128,7 +125,7 @@ int main()
 	int ctrlc = 0;
 	int k;
 	int a = 20,b = 13,c = 20,d = 30;		//Encrage de l'horloge et de la phrase
-	system("clear");				//Nettoyage de la console
+	system("clear");				//Nettoiement de la console
 	while (ctrlc != 1)
 	{
 		int y = 60;
