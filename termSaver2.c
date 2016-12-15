@@ -5,11 +5,44 @@
 #include <time.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "termSaver2.h"
 
 #define gotoxy(x,y) printf("\033[%d;%dH", (x), (y))
 #define TAILLE_MAX 1000					//Taille maximum du fichier
 #define LARGEUR_CONSOLE 80
 
+int main()
+{
+
+	int RefreshT = 10;				//Temps en seconde avant actualisation
+	int ctrlc = 0;
+	int k;
+	int a = 20,b = 13,c = 20,d = 30;		//Encrage de l'horloge et de la phrase
+	system("clear");				//Nettoyage de la console
+	while (ctrlc != 1)
+	{
+		int y = 60;
+		gotoxy(c,d);
+		InitTime();
+		gotoxy(a,b);
+		printf("Cet écran sera actualisé dans quelques secondes");
+		printf ("\n\n\n");
+
+		for (k=0; k<RefreshT; k++)
+		{
+			sleep(1);
+			gotoxy(a,y);
+			printf(".\n");
+			y++;
+		}
+		y=y-RefreshT;
+		gotoxy(a,y);
+		printf("                            ");
+	}
+	return 0;
+}
+
+/* FONTION QUI RECHERCHE ET AFFICHE L'HEURE SYSTEME*/
 int InitTime()
 {
 	time_t secondes;
@@ -44,6 +77,8 @@ int InitTime()
         int i=0, j=0;				//Déclaration des deux variables pour les boucles
         int r,e;	
 
+	fichier1 = (FILE*)malloc(sizeof(int));	//Permet d'allouer de la mémoire au pointeur fichier1
+	
 	for (z=0;z<8;z++)
 	{
 		switch (Tab[z])
@@ -110,41 +145,11 @@ int InitTime()
 				printf("%s", chaine);				//Afficher l'image ligne par ligne
         	            }
 				fclose(fichier1);   				//On ferme le fichier ouvert
-				fichier1 = NULL;	
+				fichier1 = NULL;
+				free(fichier1);					//Permet de libérer la mémoire allouer	
         	    }
 		x=x-5;
 		y=y+7;
 	}
 			
-}
-
-int main()
-{
-
-	int RefreshT = 10;				//Temps en seconde avant actualisation
-	int ctrlc = 0;
-	int k;
-	int a = 20,b = 13,c = 20,d = 30;		//Encrage de l'horloge et de la phrase
-	system("clear");				//Nettoiement de la console
-	while (ctrlc != 1)
-	{
-		int y = 60;
-		gotoxy(c,d);
-		InitTime();
-		gotoxy(a,b);
-		printf("Cet écran sera actualisé dans quelques secondes");
-		printf ("\n\n\n");
-
-		for (k=0; k<RefreshT; k++)
-		{
-			sleep(1);
-			gotoxy(a,y);
-			printf(".\n");
-			y++;
-		}
-		y=y-RefreshT;
-		gotoxy(a,y);
-		printf("                            ");
-	}
-	return 0;
 }

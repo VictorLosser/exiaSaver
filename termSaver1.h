@@ -1,0 +1,1 @@
+void printf_center (const char* str);
