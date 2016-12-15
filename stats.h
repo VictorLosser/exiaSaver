@@ -7,9 +7,9 @@ struct Input{
 };
 
 int nombreLignes(void);
-void ReadStats(Input input[]);
-void triDate(Input input[]);
-void triHeure(Input input[]);
-void PrintStats(Input input[]);
+void Lecture_stats(Input input[]);
+void tri_Date(Input input[]);
+void tri_Heure(Input input[]);
+void Afficher_stats(Input input[]);
 void Type_tS(Input input[]);
 void Image_tS1_lu(void);
