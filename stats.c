@@ -28,15 +28,15 @@ int main()
         /*---------STATS SUR LA DATE---------*/
         if(choix == 1)
         {
-            Input newInput[100] = {0}; //Création d'une nouvelle entrée
+            Input newInput[TAILLE_MAX] = {0}; //Création d'une nouvelle entrée
             Lecture_stats(newInput); //Lance la fonction Lecture_stats qui lit les stats comme son nom l'indique !
-            tri_Heure(newInput);
+            tri_Heure(newInput); //Lance la fonction tri_heure qui tri... l'heure !
         }
 
         /*---------STATS SUR LE TYPE DE FICHIER EXECUTE---------*/
         else if(choix == 2)
         {
-            Input newInput[100] = {0};
+            Input newInput[TAILLE_MAX] = {0}; //Création d'une nouvelle entrée
             Lecture_stats(newInput); //Lance la fonction Lecture_stats qui lit les stats comme son nom l'indique !
             Type_tS(newInput); //Lance la fonction Type_tS
             return 0;
@@ -67,43 +67,6 @@ void Lecture_stats(Input input[])
         }
     }
     fclose(fichier);
-}
-
-/*-------------FONCTION POUR TRIER LA DATE DANS L'ORDRE CHRONOLOGIQUE-------------*/
-void tri_Date(Input input[])
-{
-    int i = 0, tri = 0;
-    while (tri == 0)
-    {
-        tri = 1;
-        for (i = 0; i < 100; i++)
-        {
-            if (strcmp(input[i].date, input[i + 1].date) > 0)
-            {
-                char echangeDate[11];
-                strcpy(echangeDate, input[i].date);
-                strcpy(input[i].date, input[i + 1].date);
-                strcpy(input[i + 1].date, echangeDate);
-
-                char echangeHeure[11];
-                strcpy(echangeHeure, input[i].heure);
-                strcpy(input[i].heure, input[i + 1].heure);
-                strcpy(input[i + 1].heure, echangeHeure);
-
-                char echangeType[6];
-                strcpy(echangeType, input[i].type);
-                strcpy(input[i].type, input[i + 1].type);
-                strcpy(input[i + 1].type, echangeType);
-
-                char echangeParametre[20];
-                strcpy(echangeParametre, input[i].parametre);
-                strcpy(input[i].parametre, input[i + 1].parametre);
-                strcpy(input[i + 1].parametre, echangeParametre);
-                tri = 0;
-            }
-        }
-    }
-    Afficher_stats(input);
 }
 
 /*-------------FONCTION POUR TRIER L'HEURE DANS L'ORDRE CHRONOLOGIQUE-------------*/
