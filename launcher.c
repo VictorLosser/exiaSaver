@@ -80,7 +80,7 @@ int main(int argc,char *argv[])
             execl("termSaver1", "termSaver1", "2_chateau.pbm", NULL);
 		break;
 		case 3:
-            execl("termSaver1", "termSaver1", "3_fusée.pbm", NULL);
+            execl("termSaver1", "termSaver1", "3_fusee.pbm", NULL);
 		break;
 		case 4:
             execl("termSaver1", "termSaver1", "4_maison.pbm",NULL);
