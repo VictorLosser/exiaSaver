@@ -4,6 +4,8 @@
 #include <time.h>
 #include "stats.h"
 
+#define TAILLE_MAX 100
+
 int main()
 {
     system("clear");
@@ -214,77 +216,59 @@ void Type_tS(Input input[])
 
 void Image_tS1_lu(void)
 {
-    int image1 = 0, image2 = 0, image3 = 0, image4 = 0, image5 = 0; //Déclaration des compteurs pour les images lu
+    int compteur[5]; //Déclaration des compteurs pour les images lu
 
     FILE* fhistorique = NULL; //initialise le pointeur à NULL
-	fhistorique = fopen("historique.txt", "r+"); //OUVRE LE FICHIER historique.c
+	fhistorique = fopen("historique.txt", "r"); //OUVRE LE FICHIER historique.c
+
+		int i;
+
+		char image1c[] = "1_XD.pbm"; //char de comparaison pour l'image 1_XD.pbm
+		char image2c[] = "2_chateau.pbm"; //char de comparaison pour l'image 2_chateau.pbm
+		char image3c[] = "3_fusee.pbm"; //...
+		char image4c[] = "4_maison.pbm";
+		char image5c[] = "5_sapin.pbm";
+
+        int date[3][TAILLE_MAX] = {0};
+        int heure[3][TAILLE_MAX] = {0};
+        int mode[1][TAILLE_MAX] = {0};
+        char nom[50] = {""};
+
 
 	if (fhistorique != NULL)
 	{
-		int type_detecte[100];
-		int i;
 
-		char image1c[] = "1_XD.pbm";
-		char image2c[] = "2_chateau.pbm";
-		char image3c[] = "3_fusee.pbm";
-		char image4c[] = "4_maison.pbm";
-		char image5c[] = "5_sapin.pbm";
-		int verif1 = 0, verif2 = 0, verif3 = 0, verif4 = 0, verif5 = 0;
-
-
-		fseek(fhistorique, 20,SEEK_SET);
 
 		/*------Le type lu est-il bien 1 ?------*/
 
-		for (i=0; i < 100; i++)
+		while (fgetc(fhistorique) != EOF)
 		{
 
-		fscanf(fhistorique, "%d", &type_detecte[i]);
-		printf("%d ", type_detecte[i]);
+        fscanf(fhistorique, "%d/%d/%d %d:%d:%d;%d;%s",  &date[0][i], &date[1][i], &date[2][i], &heure[0][i], &heure[1][i], &heure[2][i], &mode[0][i], &nom);
 
 
-
-			if (type_detecte[i] == 1)
-			{
-				fseek(fhistorique, 1,SEEK_CUR);
-
-				char c[100] = "";
-				fgets(c, 100, fhistorique);
-				printf("%s\n", c);
-
-				verif1=strcmp(c,image1c);
-				verif2=strcmp(c,image2c);
-				verif3=strcmp(c,image3c);
-				verif4=strcmp(c,image4c);
-				verif5=strcmp(c,image5c);
-
-				if (verif1 == 0)
+				if (strcmp(nom,image1c) == 0)
 				{
-                    image1++;
+                    compteur[0]++; //J'incrémente le compteur pour l'image 1 de 1
 				}
-				else if (verif2 == 0)
+				else if (strcmp(nom,image2c) == 0)
 				{
-                    image2++;
+                    compteur[1]++;
 				}
-				else if (verif3 == 0)
+				else if (strcmp(nom,image3c) == 0)
 				{
-                    image3++;
+                    compteur[2]++;
 				}
-				else if (verif4 == 0)
+				else if (strcmp(nom,image4c) == 0)
 				{
-                    image4++;
+                    compteur[3]++;
 				}
-				else if (verif5 == 0)
+				else if (strcmp(nom,image5c) == 0)
 				{
-                    image5++;
+                    compteur[4]++;
 				}
 
-			}
-			else
-			{
-				fseek(fhistorique, 2, SEEK_CUR);
-			}
-		fseek(fhistorique, 20,SEEK_CUR);
+
 		}
 
 	}
@@ -293,5 +277,5 @@ void Image_tS1_lu(void)
 		printf("non\n");
 	}
 	fclose(fhistorique);
-    printf("Image XD: %d\nImage chateau: %d\nImage fusee: %d\nImage maison: %d\nImage sapin: %d\n", image1, image2, image3, image4, image5);
+    printf("Image XD: %d\nImage chateau: %d\nImage fusee: %d\nImage maison: %d\nImage sapin: %d\n", compteur[0], compteur[1], compteur[2], compteur[3], compteur[4]);
 }
