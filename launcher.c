@@ -171,7 +171,7 @@ void saveDate(int type, int nombrePicture)
 				break;
 				case 3:
 					fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"3_fusée.pbm");
+					fprintf(fhistorique,"3_fusee.pbm");
 				break;
 				case 4:
 					fseek(fhistorique, 0, SEEK_END);
