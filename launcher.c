@@ -20,7 +20,7 @@ int main(int argc,char *argv[])
 {
 	system("clear"); //Nettoie la console
 	srand(time(NULL));
-	int choix_ts=nb_rand()%3+1; //Affecte à la variable choix_ts, un nombre au hasard compris entre 1 et 3
+	int choix_ts=nb_rand()%2+1; //Affecte à la variable choix_ts, un nombre au hasard compris entre 1 et 3
 
 	int nb_I_S; //Variable contenant le nombre d'image statique dans le dossier des images statiques
 	nb_I_S = nombreImagesStatique(); //Met dans la variable nb_I_S le résultat retourné par la fonction nombreImaesStatique. Cette fonction permet de connaitre le nombre d'images statiques
@@ -56,9 +56,8 @@ int main(int argc,char *argv[])
 
 	printf("Bonjour et bienvenue dans exiaSaver !\nVeuillez appuyez sur Entrée pour continuer...");
 	getchar();
-	printf("\nNous allons voir ensemble quel écran de veille nous allons lancer\nVeuillez appuyez sur Entrée pour continuer...\n\n");
+	printf("\nNous allons voir ensemble quel écran de veille nous allons lancer\nVeuillez appuyez sur Entrée pour continuer...\n");
 	getchar();
-	printf("Le nombre random est de : %d\n\n", choix_ts);
 
 /*----------------------SAUVEGARDER DANS L'HISTORIQUE----------------------*/
 	saveDate(choix_ts,choix_I_S);
@@ -67,7 +66,7 @@ int main(int argc,char *argv[])
 	/*-------Que faire selon le type d'écran de veille choisi-------*/
 	if (choix_ts ==1)
 	{
-		printf("Nous allons lancer le type statique !\nVous etes pret ?\n");
+		printf("--> Nous allons lancer le type statique !\n--> Vous etes pret ?\n");
         getchar();
 
 		/*-----------L'image que l'on va lancer en mode type statique-----------*/
@@ -92,13 +91,9 @@ int main(int argc,char *argv[])
 	}
 	else if (choix_ts ==2)
 	{
-		printf("Nous allons lancer le type dynamique !\nVous etes pret ?\n");
+		printf("--> Nous allons lancer le type dynamique !\n--> Vous etes pret ?\n");
 		getchar();
 		execl("termSaver2", "termSaver2", NULL);
-	}
-	else if (choix_ts ==3)
-	{
-		printf("Nous allons lancer le type interactif !\n");
 	}
 }
 
@@ -120,7 +115,7 @@ void saveDate(int type, int nombrePicture)
 
 	if (fhistorique != NULL) //Vérifie si le fichier est bien ouvert, car si fichier=NULL signifie qu'il y a une erreur
 	{
-		printf("\nSuccès pour l'ouverture de l'historique\n");
+		printf("\n     Succès pour l'ouverture de l'historique\n");
 
 		/*----------------RECUPERER L'HEURE ET LA DATE----------------*/
 
@@ -194,7 +189,7 @@ void saveDate(int type, int nombrePicture)
 			fprintf(fhistorique,"void");
 		}
 		fclose(fhistorique);//FERME LE FICHIER
-		printf("Ecriture dans l'historique réussie\n\n");
+		printf("     Ecriture dans l'historique réussie\n\n\n");
 
 	}
 	else
