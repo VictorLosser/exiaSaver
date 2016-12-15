@@ -16,7 +16,7 @@ int main()
     ("Bienvenue dans l'espace dédié aux stats.\n\
     ----------------------\n\
     Vous pouvez consulter différentes stats :\n\n\
-       1. Les stats sur la date\n\n\
+       1. Le tri des stats selon l'heure\n\n\
        2. Les stats sur le termSaver exécuté\n\n\
        3. Les stats sur l'image chargé pour le type statique\n\n\
     Merci de faire votre choix :\n");
@@ -28,16 +28,16 @@ int main()
         /*---------STATS SUR LA DATE---------*/
         if(choix == 1)
         {
-
-
-
+            Input newInput[100] = {0}; //Création d'une nouvelle entrée
+            Lecture_stats(newInput); //Lance la fonction Lecture_stats qui lit les stats comme son nom l'indique !
+            tri_Heure(newInput);
         }
 
         /*---------STATS SUR LE TYPE DE FICHIER EXECUTE---------*/
         else if(choix == 2)
         {
             Input newInput[100] = {0};
-            ReadStats(newInput); //Lance la fonction ReadSats
+            Lecture_stats(newInput); //Lance la fonction Lecture_stats qui lit les stats comme son nom l'indique !
             Type_tS(newInput); //Lance la fonction Type_tS
             return 0;
         }
@@ -50,26 +50,8 @@ int main()
         }
 }
 
-int nombreLignes(void)
-{
-	int c;
-	int nb_lignes = 0;
-
-	FILE* fhistorique = NULL; //initialise le pointeur à NULL
-	fhistorique = fopen("historique.txt", "r+"); //OUVRE LE FICHIER historique.c
-
-    while ((c = getc(fhistorique)) != EOF)
-    {
-        if (c == '\n')
-        ++nb_lignes;
-    }
-    nb_lignes = nb_lignes-5;
-
-	return nb_lignes;
-}
-
 /*-------------FONCTION POUR LIRE ET STOCKER TOUTES LES VALEURS DANS L'HISTORIQUE-------------*/
-void ReadStats(Input input[])
+void Lecture_stats(Input input[])
 {
     FILE *fichier = NULL;
     fichier = fopen("historique.txt", "r");
@@ -88,7 +70,7 @@ void ReadStats(Input input[])
 }
 
 /*-------------FONCTION POUR TRIER LA DATE DANS L'ORDRE CHRONOLOGIQUE-------------*/
-void triDate(Input input[])
+void tri_Date(Input input[])
 {
     int i = 0, tri = 0;
     while (tri == 0)
@@ -121,11 +103,11 @@ void triDate(Input input[])
             }
         }
     }
-    PrintStats(input);
+    Afficher_stats(input);
 }
 
 /*-------------FONCTION POUR TRIER L'HEURE DANS L'ORDRE CHRONOLOGIQUE-------------*/
-void triHeure(Input input[])
+void tri_Heure(Input input[])
 {
     int k = 0, trie = 0;
     while (trie == 0)
@@ -158,16 +140,16 @@ void triHeure(Input input[])
             }
         }
     }
-    PrintStats(input);
+    Afficher_stats(input);
 }
 
 /*-------------FONCTION POUR AFFICHER LES DIFFERENTES VALEURS DANS L'HISTORIQUE-------------*/
-void PrintStats(Input input[])
+void Afficher_stats(Input input[])
 {
     int i;
     for (i = 0; i < 100; i++)
     {
-        printf("%d", i);
+        //printf("%d", i);
         printf("%s  ", input[i].date);
         printf("%s  ", input[i].heure);
         printf("%s  ", input[i].type);
