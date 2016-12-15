@@ -146,7 +146,7 @@ void saveDate(int type, int nombrePicture)
 
 		//Ecrit la date
 		fseek(fhistorique, 0, SEEK_END);
-		fprintf(fhistorique,"%s", s_HeureDate);
+		fprintf(fhistorique,"\n%s", s_HeureDate);
 		fprintf(fhistorique,";");
 
 		//Ecrit le type lancé
@@ -163,35 +163,35 @@ void saveDate(int type, int nombrePicture)
 			{
 				case 1:
 					fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"1_XD.pbm\n");
+					fprintf(fhistorique,"1_XD.pbm");
 				break;
 				case 2:
 					fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"2_chateau.pbm\n");
+					fprintf(fhistorique,"2_chateau.pbm");
 				break;
 				case 3:
 					fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"3_fusée.pbm\n");
+					fprintf(fhistorique,"3_fusée.pbm");
 				break;
 				case 4:
 					fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"4_maison.pbm\n");
+					fprintf(fhistorique,"4_maison.pbm");
                 break;
                 case 5:
                     fseek(fhistorique, 0, SEEK_END);
-					fprintf(fhistorique,"5_sapin.pbm\n");
+					fprintf(fhistorique,"5_sapin.pbm");
 				break;
 			}
 		}
 		else if (type == 2)
 		{
 			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"\n");
+			fprintf(fhistorique,"void");
 		}
 		else if (type == 3)
 		{
 			fseek(fhistorique, 0, SEEK_END);
-			fprintf(fhistorique,"\n");
+			fprintf(fhistorique,"void");
 		}
 		fclose(fhistorique);//FERME LE FICHIER
 		printf("Ecriture dans l'historique réussie\n\n");
