@@ -128,7 +128,7 @@ int main()
 	int ctrlc = 0;
 	int k;
 	int a = 20,b = 13,c = 20,d = 30;		//Encrage de l'horloge et de la phrase
-	system("clear");				//Nettoiement de la console
+	system("clear");				//Nettoyage de la console
 	while (ctrlc != 1)
 	{
 		int y = 60;
