@@ -13,8 +13,8 @@
 
 int main()
 {
-
-	int RefreshT = 10;				//Temps en seconde avant actualisation
+	char *time_sleep = getenv("EXIASAVER2_SLEEP");
+	int RefreshT = atoi(time_sleep);				//Temps en seconde avant actualisation
 	int ctrlc = 0;
 	int k;
 	int a = 20,b = 13,c = 20,d = 30;		//Encrage de l'horloge et de la phrase
@@ -56,7 +56,7 @@ int InitTime()
 	int TimeH1 = (instant.tm_hour)/10;
 	int TimeH2 = (instant.tm_hour)-(TimeH1*10);
 	//printf("Horloge --> %u%u : %u%u : %u%u\n",TimeH1 ,TimeH2,TimeM1 ,TimeM2,TimeS1 ,TimeS2);
-	
+
 	int Tab[8];
 	Tab[0]=TimeH1;
 	Tab[1]=TimeH2;
@@ -72,13 +72,13 @@ int InitTime()
 
 	int y=12, x=9;
 	FILE* fichier1 = NULL;     		//Pointeur initialisé à NULL
-	char chaine[TAILLE_MAX];        
+	char chaine[TAILLE_MAX];
 	int chaine2[2];
         int i=0, j=0;				//Déclaration des deux variables pour les boucles
-        int r,e;	
+        int r,e;
 
 	fichier1 = (FILE*)malloc(sizeof(int));	//Permet d'allouer de la mémoire au pointeur fichier1
-	
+
 	for (z=0;z<8;z++)
 	{
 		switch (Tab[z])
@@ -117,39 +117,39 @@ int InitTime()
 				fichier1 = fopen("PBM_dynamique/deuxpoints.pbm", "r");
 				break;
 		}
-		
+
 //..........................................................................................................AFFICHAGE DE L'IMAGE.....................................................................................................
-       
+
 		 if (fichier1 != NULL) 							//On peut lire le fichier
         	    {
-        	        fseek(fichier1, 3, SEEK_SET);                   
+        	        fseek(fichier1, 3, SEEK_SET);
         	        fscanf(fichier1, "%d %d", &chaine2[0], &chaine2[1]);
         	        r = chaine2[0];
         	        e = chaine2[1];
         	        r = (r*2)-1;
-        		
+
 			fseek(fichier1, 1, SEEK_CUR);
         	      	for(i=0; i<e; i++)                   			//Boucle qui va parcourir les lignes
         	            {
-				gotoxy(x,y);        	                
+				gotoxy(x,y);
 				fgets(chaine, TAILLE_MAX, fichier1);		//récupération de la ligne
         	                for(j=0; j<r; j++)               		//boucle qui parcours la ligne
         	                    {
-					gotoxy(x,y);        	                    	
+					gotoxy(x,y);
 					if (chaine[j] == '0')
         	                            chaine[j] = ' ';        		//Affiche les caractères correspondants en ' '
         	       			else if (chaine[j] == '1')
-        	                            	chaine[j] = '@';      
+        	                            	chaine[j] = '@';
         	                    }
 				x=x+1;
 				printf("%s", chaine);				//Afficher l'image ligne par ligne
         	            }
 				fclose(fichier1);   				//On ferme le fichier ouvert
 				fichier1 = NULL;
-				free(fichier1);					//Permet de libérer la mémoire allouer	
+				free(fichier1);					//Permet de libérer la mémoire allouer
         	    }
 		x=x-5;
 		y=y+7;
 	}
-			
+
 }
