@@ -19,6 +19,9 @@
 int main(int argc,char *argv[])
 {
 	system("clear"); //Nettoie la console
+
+	Declaration_varenv();
+
 	srand(time(NULL));
 	int choix_ts=nb_rand()%2+1; //Affecte à la variable choix_ts, un nombre au hasard compris entre 1 et 3
 
@@ -200,11 +203,13 @@ int nombreImagesStatique(void)
 
     DIR* repertoireImages = NULL; //déclaration et initialisation à NULL du pointeur repertoireImages
 
-    struct dirent* ent = NULL;
+    struct dirent* ent = NULL; //Création d'une nouvelle entrée ent ; la structure dirent est déjà définie dans le dirent.h
 
-    repertoireImages = opendir("PBM_statique/"); //Ouverture du dossier PBM_statique dans repertoireImages
+    char *repertoire_PBM=getenv("EXIASAVER1_PBM");
 
-    while ((ent = readdir(repertoireImages)) != NULL) //Tant que des fichiers sont lus (fichiers déjà tous lu = NULL)
+    repertoireImages = opendir(repertoire_PBM); //Ouverture du dossier PBM_statique dans repertoireImages
+
+    while ((ent = readdir(repertoireImages)) != NULL) //Tant que des fichiers sont lus (si fichiers déjà tous lu = NULL)
     {
         if (strcmp(ent->d_name, ".") != 0 && //Si le fichier lu n'est pas .
             strcmp(ent->d_name, "..") != 0) //Et n'est pas .. non plus
@@ -213,5 +218,16 @@ int nombreImagesStatique(void)
 
     closedir(repertoireImages);
     return nombrePic;
+
+}
+
+void Declaration_varenv(void)
+{
+    putenv("EXIASAVER_HOME=/home/victor/Documents/exiaSaver_project/exiaSaver/");
+    putenv("EXIASAVER1_PBM=PBM_statique/");
+    putenv("EXIASAVER2_PBM=PBM_dynamique/");
+    putenv("EXIASAVER2_TAILLE=5x3");
+    putenv("EXIASAVER2_SLEEP=10");
+
 
 }
